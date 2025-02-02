@@ -15,9 +15,8 @@ public class TransactionController {
     @Autowired
     private TransactionService service;
 
-    @GetMapping("get")
-    public ResponseEntity<SchedulingEntity> getAmount(@RequestBody SchedulingEntity entity) {
-
-        return ResponseEntity.ok(service.calculateTransactionFee(entity));
+    @GetMapping("/{id}")
+    public ResponseEntity<SchedulingEntity> getAmountById(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getShedulingById(id));
     }
 }
