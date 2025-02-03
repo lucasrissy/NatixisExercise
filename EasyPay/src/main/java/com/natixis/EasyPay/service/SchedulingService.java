@@ -11,27 +11,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class TransactionService {
+public class SchedulingService {
 
     @Autowired
     private TransactionRepository repository;
 
-    public SchedulingEntity calculateTransactionFee(SchedulingEntity entity) {
-        TransferFee fee = FeeFactory.getFeeStrategy(entity.getAmount(), entity.getScheduleDate());
-        entity.setFinalValue(fee.calculate(entity.getAmount(), entity.getScheduleDate()));
-        repository.save(entity);
-        return entity;
+    public TransferFee getFee(SchedulingDto dto) {
+        TransferFee fee = FeeFactory.getFeeStrategy(dto.getAmount(), dto.getScheduleDate());
+        return fee;
     }
     
-    public SchedulingDto getShedulingById(Long id){
+    public SchedulingDto getSchedulingById(Long id){
         return SchedulingMapper.mapToDto(repository.findById(id).get(),new SchedulingDto());
     }
 
     public List<SchedulingSummaryDto> getAllScheduling(){
         return repository.findAll().stream().map(e -> SchedulingMapper.mapToDto(e,new SchedulingSummaryDto())).toList();
+    }
+
+    public SchedulingDto createScheduling(SchedulingDto dto){
+        TransferFee fee = getFee(dto);
+        BigDecimal finalValue = fee.calculate(dto.getAmount(), dto.getScheduleDate());
+        dto.setFinalValue(finalValue);
+        repository.save(SchedulingMapper.mapToEntity(new SchedulingEntity(),dto));
+        return dto;
     }
 }
