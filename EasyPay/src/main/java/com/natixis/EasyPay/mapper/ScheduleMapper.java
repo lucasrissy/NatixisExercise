@@ -1,14 +1,14 @@
 package com.natixis.EasyPay.mapper;
 
-import com.natixis.EasyPay.dto.SchedulingDto;
+import com.natixis.EasyPay.dto.ScheduleDto;
 import com.natixis.EasyPay.dto.SchedulingSummaryDto;
-import com.natixis.EasyPay.entity.SchedulingEntity;
+import com.natixis.EasyPay.entity.ScheduleEntity;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SchedulingMapper {
+public class ScheduleMapper {
 
-    public static SchedulingEntity mapToEntity (SchedulingEntity entity, SchedulingDto dto){
+    public static ScheduleEntity mapToEntity (ScheduleEntity entity, ScheduleDto dto){
 
         entity.setFinalValue(dto.getFinalValue());
        // entity.setId(dto.getId());
@@ -19,7 +19,7 @@ public class SchedulingMapper {
         return entity;
     }
 
-    public static SchedulingDto mapToDto (SchedulingEntity entity, SchedulingDto dto){
+    public static ScheduleDto mapToDto (ScheduleEntity entity, ScheduleDto dto){
 
         dto.setFinalValue(entity.getFinalValue());
        // dto.setId(entity.getId());
@@ -30,7 +30,7 @@ public class SchedulingMapper {
         return dto;
     }
 
-    public static SchedulingEntity mapToEntity (SchedulingEntity entity, SchedulingSummaryDto dto){
+    public static ScheduleEntity mapToEntity (ScheduleEntity entity, SchedulingSummaryDto dto){
 
         entity.setFinalValue(dto.getFinalValue());
         entity.setScheduleDate(dto.getScheduleDate());
@@ -39,7 +39,7 @@ public class SchedulingMapper {
         return entity;
     }
 
-    public static SchedulingSummaryDto mapToDto (SchedulingEntity entity, SchedulingSummaryDto dto){
+    public static SchedulingSummaryDto mapToDto (ScheduleEntity entity, SchedulingSummaryDto dto){
 
         dto.setFinalValue(entity.getFinalValue());
         dto.setScheduleDate(entity.getScheduleDate());

@@ -1,17 +1,14 @@
 package com.natixis.EasyPay.entity;
 
 
-import com.natixis.EasyPay.service.interfaces.TransferFee;
 import jakarta.persistence.*;
-import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(name = "tb_scheduling")
-public class SchedulingEntity {
+public class ScheduleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,10 +18,10 @@ public class SchedulingEntity {
     private LocalDate scheduleDate;
     private BigDecimal finalValue;
 
-    public SchedulingEntity() {
+    public ScheduleEntity() {
     }
 
-    public SchedulingEntity(Long id, Long clientId, BigDecimal amount, LocalDate scheduleDate, BigDecimal finalValue) {
+    public ScheduleEntity(Long id, Long clientId, BigDecimal amount, LocalDate scheduleDate, BigDecimal finalValue) {
         this.id = id;
         this.clientId = clientId;
         this.amount = amount;

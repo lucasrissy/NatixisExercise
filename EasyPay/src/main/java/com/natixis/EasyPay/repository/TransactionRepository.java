@@ -1,7 +1,7 @@
 package com.natixis.EasyPay.repository;
 
-import com.natixis.EasyPay.entity.SchedulingEntity;
+import com.natixis.EasyPay.entity.ScheduleEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TransactionRepository extends JpaRepository<SchedulingEntity, Long> {
+public interface TransactionRepository extends JpaRepository<ScheduleEntity, Long> {
 }

@@ -1,5 +1,6 @@
 package com.natixis.EasyPay.service.interfaces.validators;
 
+import com.natixis.EasyPay.exception.InvalidDateException;
 import com.natixis.EasyPay.service.interfaces.ScheduleValidator;
 
 import java.math.BigDecimal;
@@ -14,17 +15,9 @@ public class FeeCValidator implements ScheduleValidator {
     @Override
     public void validate(LocalDate newDate, BigDecimal amount) {
         long daysBetween = ChronoUnit.DAYS.between(LocalDate.now(), newDate);
-
-        if (daysBetween >= 11 && daysBetween <= 20) {
-            // Data válida
-        } else if (daysBetween >= 21 && daysBetween <= 30) {
-            // Data válida
-        } else if (daysBetween >= 31 && daysBetween <= 40) {
-            // Data válida
-        } else if (daysBetween > 40) {
-            // Data válida
-        } else {
-            throw new IllegalArgumentException("Para montantes maiores que 2000€, a data deve estar entre 11 e mais de 40 dias.");
+        System.out.println(daysBetween + "<--");
+        if (daysBetween < 11) {
+            throw new InvalidDateException(newDate.toString(), "11 days from today");
         }
     }
 }

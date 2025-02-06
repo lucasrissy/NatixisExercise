@@ -1,7 +1,8 @@
 package com.natixis.EasyPay.controller;
 
+import com.natixis.EasyPay.dto.ResponseDto;
 import com.natixis.EasyPay.dto.ScheduleUpdateDto;
-import com.natixis.EasyPay.dto.SchedulingDto;
+import com.natixis.EasyPay.dto.ScheduleDto;
 import com.natixis.EasyPay.dto.SchedulingSummaryDto;
 import com.natixis.EasyPay.service.SchedulingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -19,7 +21,7 @@ public class SchedulingController {
     private SchedulingService service;
 
     @GetMapping("/{id}")
-    public ResponseEntity<SchedulingDto> getSchedulingDetailsById(@PathVariable Long id) {
+    public ResponseEntity<ScheduleDto> getSchedulingDetailsById(@PathVariable Long id) {
         return ResponseEntity.ok(service.getSchedulingById(id));
     }
 
@@ -29,26 +31,45 @@ public class SchedulingController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<SchedulingDto> createScheduling(@RequestBody SchedulingDto dto){
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.createScheduling(dto));
+    public ResponseEntity<ResponseDto> createScheduling(@RequestBody ScheduleDto dto){
+
+
+        service.createScheduling(dto);
+
+        ResponseDto response = new ResponseDto(
+                HttpStatus.CREATED,
+                "Scheduling created successfully!",
+                LocalDateTime.now()
+        );
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
 
     @PutMapping("/update/{id}")
     public ResponseEntity<ScheduleUpdateDto> update(@RequestBody ScheduleUpdateDto dto, @PathVariable Long id){
 
-        /*
-        if(service.updateSensor(dto,id)){
-            return ResponseEntity.status(HttpStatus.OK)
-                    .body(new ResponseDto(HttpStatus.OK,"Update was realized!"));
-        }else {
-            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
-                    .body(new ResponseDto(HttpStatus.EXPECTATION_FAILED,"update was not realized!"));
-        }
-        */
+
         return ResponseEntity.ok(service.updateSchedule(id,dto));
     }
 
-    @DeleteMapping("/update/{id}") void deleteSchedule(@PathVariable Long id){
+    @DeleteMapping("/delete/{id}") ResponseEntity<ResponseDto> deleteSchedule(@PathVariable Long id){
         boolean isDeleted = service.deleteScheduleById(id);
+        if (isDeleted){
+            return ResponseEntity.status(HttpStatus.OK).body(
+                     new ResponseDto(
+                            HttpStatus.OK,
+                            "Scheduling deleted successfully!",
+                            LocalDateTime.now()
+                    )
+            );
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                new ResponseDto(
+                        HttpStatus.NOT_FOUND,
+                        "Scheduling not found!",
+                        LocalDateTime.now()
+                )
+        );
     }
 }

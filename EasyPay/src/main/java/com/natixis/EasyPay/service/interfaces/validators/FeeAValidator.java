@@ -1,5 +1,6 @@
 package com.natixis.EasyPay.service.interfaces.validators;
 
+import com.natixis.EasyPay.exception.InvalidDateException;
 import com.natixis.EasyPay.service.interfaces.ScheduleValidator;
 
 import java.math.BigDecimal;
@@ -15,7 +16,7 @@ public class FeeAValidator implements ScheduleValidator {
 
         LocalDate currentDate = LocalDate.now();
         if (!newDate.isEqual(currentDate)) {
-            throw new IllegalArgumentException("Para montantes até 1000€, a data deve ser igual à atual.");
+            throw new InvalidDateException(newDate.toString(), "0 days from today");
         }
 
     }

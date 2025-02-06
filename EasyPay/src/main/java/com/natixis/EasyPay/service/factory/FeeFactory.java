@@ -1,5 +1,6 @@
 package com.natixis.EasyPay.service.factory;
 
+import com.natixis.EasyPay.exception.BusinessRuleViolationException;
 import com.natixis.EasyPay.service.interfaces.TransferFee;
 import com.natixis.EasyPay.service.interfaces.fees.FeeA;
 import com.natixis.EasyPay.service.interfaces.fees.FeeB;
@@ -19,10 +20,10 @@ public class FeeFactory {
             return new FeeA();
         } else if (amount.compareTo(BigDecimal.valueOf(1001)) >= 0 && amount.compareTo(BigDecimal.valueOf(2000)) <= 0 && daysBetween >= 1 && daysBetween <= 10) {
             return new FeeB();
-        } else if (amount.compareTo(BigDecimal.valueOf(2000)) > 0) {
+        } else if (amount.compareTo(BigDecimal.valueOf(2000)) >= 0 && daysBetween >= 11) {
             return new FeeC();
         }
-
-        throw new IllegalArgumentException("No valid fee type found for the given transaction.");
+        System.out.println("AQUI");
+        throw new BusinessRuleViolationException(amount);
     }
 }

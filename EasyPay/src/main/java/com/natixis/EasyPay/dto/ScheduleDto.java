@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 
-public class SchedulingDto {
+public class ScheduleDto {
 
     private Long id;
     private Long clientId;
@@ -12,10 +12,10 @@ public class SchedulingDto {
     private LocalDate scheduleDate;
     private BigDecimal finalValue;
 
-    public SchedulingDto() {
+    public ScheduleDto() {
     }
 
-    public SchedulingDto(Long id, Long clientId, BigDecimal amount, LocalDate scheduleDate, BigDecimal finalValue) {
+    public ScheduleDto(Long id, Long clientId, BigDecimal amount, LocalDate scheduleDate, BigDecimal finalValue) {
         this.id = id;
         this.clientId = clientId;
         this.amount = amount;
