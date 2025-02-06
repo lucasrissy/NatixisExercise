@@ -1,11 +1,14 @@
 package com.natixis.EasyPay.service;
 
+import com.natixis.EasyPay.dto.ScheduleUpdateDto;
 import com.natixis.EasyPay.dto.SchedulingDto;
 import com.natixis.EasyPay.dto.SchedulingSummaryDto;
 import com.natixis.EasyPay.entity.SchedulingEntity;
 import com.natixis.EasyPay.mapper.SchedulingMapper;
 import com.natixis.EasyPay.repository.TransactionRepository;
 import com.natixis.EasyPay.service.factory.FeeFactory;
+import com.natixis.EasyPay.service.factory.ScheduleValidatorFactory;
+import com.natixis.EasyPay.service.interfaces.ScheduleValidator;
 import com.natixis.EasyPay.service.interfaces.TransferFee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,5 +41,31 @@ public class SchedulingService {
         dto.setFinalValue(finalValue);
         repository.save(SchedulingMapper.mapToEntity(new SchedulingEntity(),dto));
         return dto;
+    }
+
+    public ScheduleUpdateDto updateSchedule(Long id, ScheduleUpdateDto dto){
+        SchedulingEntity entity = repository.getReferenceById(id);
+
+        ScheduleValidator validator = ScheduleValidatorFactory.getValidator(entity.getAmount());
+
+        validator.validate(dto.getScheduleDate(), entity.getAmount());
+
+        entity.setScheduleDate(dto.getScheduleDate());
+
+        repository.save(entity);
+
+        return dto;
+    }
+
+    public boolean deleteScheduleById(Long id){
+        boolean isUpdate = false;
+
+        if (repository.existsById(id)){
+
+            repository.deleteById(id);
+
+            isUpdate = true;
+        }
+        return isUpdate;
     }
 }
