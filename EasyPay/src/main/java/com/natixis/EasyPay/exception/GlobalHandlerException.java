@@ -45,6 +45,17 @@ public class GlobalHandlerException {
         return new ResponseEntity<>(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(ResourceNotFound.class)
+    public ResponseEntity<ResponseDto> handleResourceNotFoundException (ResourceNotFound exception, WebRequest webRequest){
+
+        ResponseDto responseDto = new ResponseDto(
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                exception.getMessage(),
+                LocalDateTime.now()
+        );
+        return new ResponseEntity<>(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 
 
 }

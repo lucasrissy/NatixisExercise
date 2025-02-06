@@ -20,7 +20,7 @@ public class SchedulingController {
     @Autowired
     private SchedulingService service;
 
-    @GetMapping("/{id}")
+    @GetMapping("get/{id}")
     public ResponseEntity<ScheduleDto> getSchedulingDetailsById(@PathVariable Long id) {
         return ResponseEntity.ok(service.getSchedulingById(id));
     }

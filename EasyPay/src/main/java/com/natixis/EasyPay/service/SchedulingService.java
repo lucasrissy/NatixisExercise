@@ -4,6 +4,8 @@ import com.natixis.EasyPay.dto.ScheduleUpdateDto;
 import com.natixis.EasyPay.dto.ScheduleDto;
 import com.natixis.EasyPay.dto.SchedulingSummaryDto;
 import com.natixis.EasyPay.entity.ScheduleEntity;
+import com.natixis.EasyPay.exception.InvalidDateException;
+import com.natixis.EasyPay.exception.ResourceNotFound;
 import com.natixis.EasyPay.mapper.ScheduleMapper;
 import com.natixis.EasyPay.repository.TransactionRepository;
 import com.natixis.EasyPay.service.factory.FeeFactory;
@@ -28,7 +30,8 @@ public class SchedulingService {
     }
     
     public ScheduleDto getSchedulingById(Long id){
-        return ScheduleMapper.mapToDto(repository.findById(id).get(),new ScheduleDto());
+        return ScheduleMapper.mapToDto(repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFound("Resource not found","id",id.toString())),new ScheduleDto());
     }
 
     public List<SchedulingSummaryDto> getAllScheduling(){

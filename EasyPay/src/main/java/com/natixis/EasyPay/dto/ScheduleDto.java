@@ -6,7 +6,6 @@ import java.time.LocalDate;
 
 public class ScheduleDto {
 
-    private Long id;
     private Long clientId;
     private BigDecimal amount;
     private LocalDate scheduleDate;
@@ -15,8 +14,7 @@ public class ScheduleDto {
     public ScheduleDto() {
     }
 
-    public ScheduleDto(Long id, Long clientId, BigDecimal amount, LocalDate scheduleDate, BigDecimal finalValue) {
-        this.id = id;
+    public ScheduleDto(Long clientId, BigDecimal amount, LocalDate scheduleDate, BigDecimal finalValue) {
         this.clientId = clientId;
         this.amount = amount;
         this.scheduleDate = scheduleDate;
@@ -55,12 +53,5 @@ public class ScheduleDto {
         this.amount = amount;
     }
 
-    public Long getClientId() {
-        return clientId;
-    }
-
-    public void setClientId(Long clientId) {
-        this.clientId = clientId;
-    }
 
 }
