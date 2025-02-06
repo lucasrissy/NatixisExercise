@@ -4,7 +4,7 @@ import com.natixis.EasyPay.dto.ResponseDto;
 import com.natixis.EasyPay.dto.ScheduleUpdateDto;
 import com.natixis.EasyPay.dto.ScheduleDto;
 import com.natixis.EasyPay.dto.SchedulingSummaryDto;
-import com.natixis.EasyPay.service.SchedulingService;
+import com.natixis.EasyPay.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ import java.util.List;
 public class SchedulingController {
 
     @Autowired
-    private SchedulingService service;
+    private ScheduleService service;
 
     @GetMapping("get/{id}")
     public ResponseEntity<ScheduleDto> getSchedulingDetailsById(@PathVariable Long id) {

@@ -7,7 +7,7 @@ import com.natixis.EasyPay.entity.ScheduleEntity;
 import com.natixis.EasyPay.exception.InvalidDateException;
 import com.natixis.EasyPay.exception.ResourceNotFound;
 import com.natixis.EasyPay.mapper.ScheduleMapper;
-import com.natixis.EasyPay.repository.TransactionRepository;
+import com.natixis.EasyPay.repository.ScheduleRepository;
 import com.natixis.EasyPay.service.factory.FeeFactory;
 import com.natixis.EasyPay.service.factory.ScheduleValidatorFactory;
 import com.natixis.EasyPay.service.interfaces.ScheduleValidator;
@@ -19,10 +19,13 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Service
-public class SchedulingService {
+public class ScheduleService {
 
     @Autowired
-    private TransactionRepository repository;
+    private ScheduleRepository repository;
+
+    @Autowired
+    private TransferFee fee;
 
     public TransferFee getFee(ScheduleDto dto) {
         TransferFee fee = FeeFactory.getFeeStrategy(dto.getAmount(), dto.getScheduleDate());
@@ -39,6 +42,14 @@ public class SchedulingService {
     }
 
     public ScheduleDto createScheduling(ScheduleDto dto){
+
+        if (dto.getAmount() == null) {
+            throw new IllegalArgumentException("Invalid amount");
+        }
+
+        if (dto.getScheduleDate() == null) {
+            throw new IllegalArgumentException("Invalid schedule date");
+        }
         TransferFee fee = getFee(dto);
         BigDecimal finalValue = fee.calculate(dto.getAmount(), dto.getScheduleDate());
         dto.setFinalValue(finalValue);

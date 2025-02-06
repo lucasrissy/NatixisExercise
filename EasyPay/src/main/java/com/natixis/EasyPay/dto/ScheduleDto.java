@@ -21,14 +21,6 @@ public class ScheduleDto {
         this.finalValue = finalValue;
     }
 
-    public Long getId(){
-        return id;
-    }
-
-    public void setId(Long id){
-        this.id = id;
-    }
-
     public BigDecimal getFinalValue() {
         return finalValue;
     }
@@ -53,5 +45,12 @@ public class ScheduleDto {
         this.amount = amount;
     }
 
+    public Long getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
+    }
 
 }
