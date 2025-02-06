@@ -1,6 +1,6 @@
 package com.natixis.EasyPay.exception;
 
-import com.natixis.EasyPay.dto.ResponseDto;
+import com.natixis.EasyPay.dto.ResponseErrorDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,47 +13,47 @@ import java.time.LocalDateTime;
 public class GlobalHandlerException {
 
     @ExceptionHandler(InvalidDateException.class)
-    public ResponseEntity<ResponseDto> handleInvalidDateException (InvalidDateException exception){
+    public ResponseEntity<ResponseErrorDto> handleInvalidDateException (InvalidDateException exception){
 
-        ResponseDto responseDto = new ResponseDto(
-                HttpStatus.INTERNAL_SERVER_ERROR,
+        ResponseErrorDto responseErrorDto = new ResponseErrorDto(
+                HttpStatus.BAD_REQUEST,
                 exception.getMessage(),
                 LocalDateTime.now()
         );
-        return new ResponseEntity<>(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(responseErrorDto, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(SchedulingNotFoundException.class)
-    public ResponseEntity<ResponseDto> handleSchedulingNotFoundException (SchedulingNotFoundException exception){
+    public ResponseEntity<ResponseErrorDto> handleSchedulingNotFoundException (SchedulingNotFoundException exception){
 
-        ResponseDto responseDto = new ResponseDto(
+        ResponseErrorDto responseErrorDto = new ResponseErrorDto(
                 HttpStatus.INTERNAL_SERVER_ERROR,
                 exception.getMessage(),
                 LocalDateTime.now()
         );
-        return new ResponseEntity<>(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(responseErrorDto, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(BusinessRuleViolationException.class)
-    public ResponseEntity<ResponseDto> handleBusinessRuleViolationException (BusinessRuleViolationException exception, WebRequest webRequest){
+    public ResponseEntity<ResponseErrorDto> handleBusinessRuleViolationException (BusinessRuleViolationException exception, WebRequest webRequest){
 
-        ResponseDto responseDto = new ResponseDto(
+        ResponseErrorDto responseErrorDto = new ResponseErrorDto(
                 HttpStatus.INTERNAL_SERVER_ERROR,
                 exception.getMessage(),
                 LocalDateTime.now()
         );
-        return new ResponseEntity<>(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(responseErrorDto, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(ResourceNotFound.class)
-    public ResponseEntity<ResponseDto> handleResourceNotFoundException (ResourceNotFound exception, WebRequest webRequest){
+    public ResponseEntity<ResponseErrorDto> handleResourceNotFoundException (ResourceNotFound exception, WebRequest webRequest){
 
-        ResponseDto responseDto = new ResponseDto(
-                HttpStatus.INTERNAL_SERVER_ERROR,
+        ResponseErrorDto responseErrorDto = new ResponseErrorDto(
+                HttpStatus.BAD_REQUEST,
                 exception.getMessage(),
                 LocalDateTime.now()
         );
-        return new ResponseEntity<>(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(responseErrorDto, HttpStatus.BAD_REQUEST);
     }
 
 

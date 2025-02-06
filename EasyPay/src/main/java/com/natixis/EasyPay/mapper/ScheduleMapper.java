@@ -11,7 +11,6 @@ public class ScheduleMapper {
     public static ScheduleEntity mapToEntity (ScheduleEntity entity, ScheduleDto dto){
 
         entity.setFinalValue(dto.getFinalValue());
-       // entity.setId(dto.getId());
         entity.setScheduleDate(dto.getScheduleDate());
         entity.setAmount(dto.getAmount());
         entity.setClientId(dto.getClientId());
@@ -22,7 +21,6 @@ public class ScheduleMapper {
     public static ScheduleDto mapToDto (ScheduleEntity entity, ScheduleDto dto){
 
         dto.setFinalValue(entity.getFinalValue());
-       // dto.setId(entity.getId());
         dto.setScheduleDate(entity.getScheduleDate());
         dto.setAmount(entity.getAmount());
         dto.setClientId(entity.getClientId());

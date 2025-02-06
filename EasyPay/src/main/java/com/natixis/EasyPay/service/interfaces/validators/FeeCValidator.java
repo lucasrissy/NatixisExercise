@@ -15,7 +15,6 @@ public class FeeCValidator implements ScheduleValidator {
     @Override
     public void validate(LocalDate newDate, BigDecimal amount) {
         long daysBetween = ChronoUnit.DAYS.between(LocalDate.now(), newDate);
-        System.out.println(daysBetween + "<--");
         if (daysBetween < 11) {
             throw new InvalidDateException(newDate.toString(), "11 days from today");
         }

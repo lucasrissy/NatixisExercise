@@ -23,7 +23,6 @@ public class FeeFactory {
         } else if (amount.compareTo(BigDecimal.valueOf(2000)) >= 0 && daysBetween >= 11) {
             return new FeeC();
         }
-        System.out.println("AQUI");
         throw new BusinessRuleViolationException(amount);
     }
 }

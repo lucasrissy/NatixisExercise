@@ -24,9 +24,6 @@ public class ScheduleService {
     @Autowired
     private ScheduleRepository repository;
 
-    @Autowired
-    private TransferFee fee;
-
     public TransferFee getFee(ScheduleDto dto) {
         TransferFee fee = FeeFactory.getFeeStrategy(dto.getAmount(), dto.getScheduleDate());
         return fee;

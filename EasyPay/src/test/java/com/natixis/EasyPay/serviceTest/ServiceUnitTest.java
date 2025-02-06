@@ -81,11 +81,10 @@ public class ServiceUnitTest {
     public void shouldCreateSchedulingSuccessfullyWhenDtoIsValid() {
         BigDecimal expectedFinalValue = new BigDecimal("518.00");
 
-        // Simula o comportamento do método calculate do mock transferFee
         when(transferFee.calculate(scheduleDto.getAmount(), scheduleDto.getScheduleDate()))
                 .thenReturn(expectedFinalValue);
 
-        // Mock de FeeFactory.getFee para retornar o mock de TransferFee
+
         try (MockedStatic<FeeFactory> mockedStatic = mockStatic(FeeFactory.class)) {
             mockedStatic.when(() -> FeeFactory.getFeeStrategy(scheduleDto.getAmount(), scheduleDto.getScheduleDate())).thenReturn(transferFee);
 
@@ -110,7 +109,8 @@ public class ServiceUnitTest {
 
         ScheduleDto invalidScheduleDto = new ScheduleDto();
         invalidScheduleDto.setAmount(null);
-        invalidScheduleDto.setScheduleDate(LocalDate.of(2023,01,01)); // Data inválida (não existe)
+        invalidScheduleDto.setScheduleDate(LocalDate.of(2023,01,01));
+
 
 
         try (MockedStatic<FeeFactory> mockedStatic = mockStatic(FeeFactory.class)) {
@@ -121,6 +121,7 @@ public class ServiceUnitTest {
             });
         }
     }
+
 }
 
 
